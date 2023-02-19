@@ -55,7 +55,7 @@ ENV LANG=en_US.UTF-8
 # timezone
 RUN sed -i 's/;date.timezone =/date.timezone = "UTC"/g' /etc/php/7.4/apache2/php.ini
 
-COPY dockerfiles/config/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY config/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 RUN a2enmod rewrite
 RUN a2enmod expires
@@ -71,7 +71,7 @@ RUN rm index.html
 
 # composer and packages layer
 RUN curl -sS https://getcomposer.org/installer | php
-COPY composer.json /var/www/html
+COPY config/composer.json /var/www/html
 RUN php composer.phar install --no-dev --no-autoloader
 
 # skosmos layer
@@ -80,7 +80,7 @@ RUN php composer.phar install --no-dev
 
 
 # Configure Skosmos
-COPY dockerfiles/config/config-docker.ttl /var/www/html/config.ttl
+COPY config/config-docker.ttl /var/www/html/config.ttl
 
 HEALTHCHECK --interval=5s --timeout=3s --retries=3 CMD curl -f http://localhost || exit 1
 

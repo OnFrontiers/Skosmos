@@ -1,0 +1,6 @@
+FROM varnish:latest
+
+# Configure Fuseki Cache
+COPY config/varnish-default.vcl /etc/varnish/default.vcl
+
+EXPOSE 80
