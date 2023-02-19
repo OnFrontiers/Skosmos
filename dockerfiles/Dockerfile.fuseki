@@ -1,0 +1,6 @@
+FROM stain/jena-fuseki:latest
+
+# Configure Fuseki
+COPY config/skosmos.ttl /fuseki/configuration/skosmos.ttl
+
+EXPOSE 3030
